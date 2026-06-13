@@ -1,0 +1,48 @@
+import type {
+        IAuthenticateGeneric,
+        Icon,
+        ICredentialType,
+        INodeProperties,
+} from 'n8n-workflow';
+
+export class AzureMigrateprojectsMigrateApi implements ICredentialType {
+        name = 'N8nDevAzureMigrateprojectsMigrateApi';
+
+        displayName = 'Azure Migrateprojects Migrate API';
+
+        icon: Icon = { light: 'file:../nodes/AzureMigrateprojectsMigrate/azure-migrateprojects-migrate.png', dark: 'file:../nodes/AzureMigrateprojectsMigrate/azure-migrateprojects-migrate.dark.png' };
+
+        documentationUrl = '';
+
+        properties: INodeProperties[] = [
+          {
+                        displayName: 'Base URL',
+                        name: 'url',
+                        type: 'string',
+                        default: '',
+                        required: true,
+                        placeholder: 'https://api.example.com',
+                        description: 'The base URL of your Azure Migrateprojects Migrate API server',
+                },
+                {
+                        displayName: 'API Key',
+                        name: 'apiKey',
+                        type: 'string',
+                        typeOptions: { password: true },
+                        default: '',
+                        required: false,
+                },
+        
+        ];
+
+  authenticate: IAuthenticateGeneric = {
+                type: 'generic',
+                properties: {
+                        headers: {
+                                Authorization: '=Bearer {{$credentials.apiKey}}',
+                        },
+                },
+        };
+
+
+}
